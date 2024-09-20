@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Search #developers</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+	<div class="container mx-auto flex flex-col items-center justify-center h-screen m-5">
+		<div class="flex flex-col items-center justify-center mb-5">
+			<h1 class="text-4xl font-bold text-gray-800 mb-5">Search #developers</h1>
+			<form>
+				<input class="bg-gray-800 text-white text-xl text-center font-bold rounded-lg border shadow-lg p-4"
+					placeholder="Enter your query here 👋" />
+				<button class="bg-blue-500 text-white text-xl font-bold rounded-lg border shadow-lg p-4">Search</button>
+			</form>
+		</div>
+
+		<table id="results" class="border-separate border-spacing-x-6 border-spacing-y-2"></table>
+	</div>
+
+	<script>
+		const form = document.querySelector('form');
+		const input = document.querySelector('input');
+		const button = document.querySelector('button');
+
+		button.addEventListener('click', (event) => {
+			event.preventDefault();
+			search(input.value);
+			return false;
+		});
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			search(input.value);
+			return false;
+		});
+
+		const results = document.querySelector('#results');
+		const search = async (query, event) => {
+			const response = await fetch('', {
+				method: 'POST',
+				body: JSON.stringify({ query }),
+			}).then((response) => response.json());
+
+			results.innerHTML = `
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${response.map(
+				({ question, link }) =>
+					`
+						<tr>
+							<td>${question}</td>
+							<td><a href="${link}">Link</a></td>
+						</tr>
+					`
+			).join('')}
+          </tbody>
+        `;
+		}
+	</script>
+</body>
+
+</html>

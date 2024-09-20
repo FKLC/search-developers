@@ -1,0 +1,6 @@
+{
+  "accountId": "CLOUDFLARE_ACCOUNT_ID",
+  "apiToken": "CLOUDFLARE_API_TOKEN",
+  "model": "@cf/baai/bge-base-en-v1.5",
+  "indexName": "VECTORIZE_INDEX_NAME"
+}
